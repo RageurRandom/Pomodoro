@@ -8,14 +8,22 @@ let secTravail = document.getElementById("secTravail");
 
 // let boutonReset = document.getElementById("reset"); //TODO les boutons reset et start sont les memes
 
-let tpsActuel = {minutes:0, secondes:0}; // temps du chrono
-let tpsTravail = {minutes : 20, secondes : 0};
+// temps du chrono mis à jour
+let tpsActuel = {minutes:0, secondes:0}; 
+
+// ces temps sont seulement changés manuellement par l'utilisateur
+let tpsTravail = {minutes : 20, secondes : 0}; 
 let tpsRepos = {minutes : 10, secondes : 0};
-let travaille = true;
-let estLance = false;
+
+let travaille = true; //utilisé pour savoir si l'utilisateur est en repos ou en travail
+let estLance = false; //true si le chrono est lancé, false sinon
+
 let minuteur; // stock le Timeout, permet de réinitialiser le chrono
 
 
+/**
+ * Fonction utilisée pour passer du statut "travil" à "repos" et inversement
+ */
 function changementStatut(){
     if(travaille){
         tpsActuel.secondes = tpsRepos.secondes;
@@ -38,7 +46,9 @@ function changementStatut(){
 }
 
 
-
+/**
+ * Démarre le chronomètre, et transforme le bouton start en bouton reset
+ */
 function lancerChrono(){
     minuteur = setInterval(()=>{
         if(tpsActuel.secondes > 0 || tpsActuel.minutes > 0){
@@ -55,24 +65,30 @@ function lancerChrono(){
     }, 1000);
 
     
-    boutonStart.className = "fa-solid fa-rotate"; //mets l'icone du bouton sur start
+    boutonStart.className = "fa-solid fa-rotate"; //mets l'icone du bouton sur reset
 }
 
 /**
- * Réinitialise le chrono et rafraichit l'horloge
+ * Réinitialise le chrono, rafraichit l'horloge et remets le style de la page sur le mode "travail"
  */
 function reinitialiserChrono(){
     clearInterval(minuteur);
     tpsActuel.minutes = tpsTravail.minutes;
     tpsActuel.secondes = tpsTravail.secondes;
+    
     travaille = true;
 
-    boutonStart.className = "fa-solid fa-circle-play"; //mets l'icone du bouton sur reset
+    statut.textContent = 'Travail';
+    document.getElementById("body").style.background = "crimson";
+    boutonStart.className = "fa-solid fa-circle-play"; //mets l'icone du bouton sur start
 
     rafraichitHorloge();
 }
 
 
+/**
+ * synchronise l'affichage du chrono avec tpsActuel
+ */
 function rafraichitHorloge(){
     let strMin = tpsActuel.minutes.toString();
     let strSec = tpsActuel.secondes.toString();
@@ -107,6 +123,8 @@ boutonStart.addEventListener("click", ()=> {
     }
 });
 
+// Champs de formulaire (utilisés pour personnaliser le temps de travail et de repos)
+
 secTravail.addEventListener("change", ()=>{
     rafraichitTemps();
 
@@ -125,6 +143,7 @@ secRepos.addEventListener("change", ()=>{
 minRepos.addEventListener("change", ()=>{
     rafraichitTemps();
 });
+
 
 // INITIALISATION
 tpsActuel.minutes = tpsTravail.minutes;
