@@ -2,4 +2,41 @@ body{
     background-color: crimson;
     color: white;
     font-family: "Roboto", Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+div{
+    margin-top: 3pc;
+}
+
+
+.conteneur-horloge{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    width: 280px;
+    height: 280px;
+
+    margin-left: 42.5%;
+
+    border: 7px solid white;
+    border-radius: 50%;
+}
+
+.horloge{
+    margin-top: 0;
+    font-size: 3pc;
+
+    
+    
+    padding: auto;
+
+    
+
+}
+
+button{
+    margin-top: 1pc;
 }
