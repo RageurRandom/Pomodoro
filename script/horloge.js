@@ -1,6 +1,10 @@
 let horloge = document.getElementById("horloge");
 let statut = document.getElementById("statut");
 let boutonStart = document.getElementById("start");
+let minRepos = document.getElementById("minRepos");
+let secRepos = document.getElementById("secRepos");
+let minTravail = document.getElementById("minTravail");
+let secTravail = document.getElementById("secTravail");
 
 // let boutonReset = document.getElementById("reset"); //TODO les boutons reset et start sont les memes
 
@@ -82,13 +86,10 @@ boutonStart.addEventListener("click", ()=> {
     }
 });
 
-// boutonReset.addEventListener("click", ()=>{
-//     clearInterval(minuteur);
-//     tpsActuel.minutes = tpsTravail.minutes;
-//     tpsActuel.secondes = tpsTravail.secondes;
-//     travaille = true;
-//     rafraichitHorloge();
-// });
+secTravail.addEventListener("change", ()=>{
+    tpsTravail.secondes = parseInt(secTravail.textContent);
+    console.log("done");
+});
 
 // INITIALISATION
 tpsActuel.minutes = tpsTravail.minutes;
