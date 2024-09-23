@@ -1,45 +1,96 @@
 let horloge = document.getElementById("horloge");
-let start = document.getElementById("start");
-let stop = document.getElementById("stop");
+let statut = document.getElementById("statut");
+let boutonStart = document.getElementById("start");
 
-let tpsActuel = {minutes:0, secondes:0};
-let tpsTravail = {minutes : 20, secondes : 0};
+// let boutonReset = document.getElementById("reset"); //TODO les boutons reset et start sont les memes
+
+let tpsActuel = {minutes:0, secondes:0}; // temps du chrono
+let tpsTravail = {minutes : 0, secondes : 3};
 let tpsRepos = {minutes : 10, secondes : 0};
+let travaille = true;
+let estLance = false;
+let minuteur; // stock le Timeout, permet de réinitialiser le chrono
 
-let minuteur;
+
+
+
+
+
+function changementStatut(){
+    if(travaille){
+        tpsActuel.secondes = tpsRepos.secondes;
+        tpsActuel.minutes = tpsRepos.minutes;
+
+        statut.textContent = 'Repos';
+
+        travaille = false;
+    } else {
+        tpsActuel.secondes = tpsTravail.secondes;
+        tpsActuel.minutes = tpsTravail.minutes;
+
+        statut.textContent = 'Travail';
+
+        travaille = true;
+    }
+}
+
+
 
 function lancerChrono(){
-    minuteur = setTimeout(()=>{
-        tpsActuel.secondes --;
-        if(tpsActuel.secondes < 0){
-            tpsActuel.secondes = 0;
-            tpsActuel.minutes --;
+    minuteur = setInterval(()=>{
+        if(tpsActuel.secondes > 0 || tpsActuel.minutes > 0){
+            tpsActuel.secondes --;
+            if(tpsActuel.secondes < 0){
+                tpsActuel.secondes = 59;
+                tpsActuel.minutes --;
+            }
+        } else {
+            changementStatut();
         }
 
-        rafraichitHorloge(tpsActuel.minutes, tpsActuel.secondes);
-    }, 10);
+        rafraichitHorloge(); 
+    }, 1000); // mettre 1000 pour une seconde
 
-    while(tpsActuel.minutes > 0 && tpsActuel.secondes > 0){
-        
-        time
-        console.log("tour fini");
-        }
+    boutonStart.textContent = "reset";
 }
 
-function rafraichitHorloge(minutes, secondes){
-    horloge.textContent = minutes+":"+secondes;
+function reinitialiserChrono(){
+    clearInterval(minuteur);
+    tpsActuel.minutes = tpsTravail.minutes;
+    tpsActuel.secondes = tpsTravail.secondes;
+    travaille = true;
+
+    boutonStart.textContent = "start";
 }
 
-// MAIN
+function rafraichitHorloge(){
+    let strMin = tpsActuel.minutes.toString();
+    let strSec = tpsActuel.secondes.toString();
 
-rafraichitHorloge(tpsTravail.minutes, tpsTravail.secondes);
+    horloge.textContent = strMin.padStart(2, '0')+":"+strSec.padStart(2, '0');
+}
 
-start.addEventListener("click", ()=> {
-    tpsActuel = tpsTravail;
-    console.log(tpsActuel.minutes + ":"+ tpsActuel.secondes);
-    lancerChrono();
+
+boutonStart.addEventListener("click", ()=> {
+    if(estLance){
+        reinitialiserChrono();
+        estLance = false;
+    rafraichitHorloge();
+    } else {
+        lancerChrono();
+        estLance = true;
+    }
 });
 
-stop.addEventListener("click", ()=>{
-    console.log("stop");
-});
+// boutonReset.addEventListener("click", ()=>{
+//     clearInterval(minuteur);
+//     tpsActuel.minutes = tpsTravail.minutes;
+//     tpsActuel.secondes = tpsTravail.secondes;
+//     travaille = true;
+//     rafraichitHorloge();
+// });
+
+// INITIALISATION
+tpsActuel.minutes = tpsTravail.minutes;
+tpsActuel.secondes = tpsTravail.secondes;
+rafraichitHorloge();
