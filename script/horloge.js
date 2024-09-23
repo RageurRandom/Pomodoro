@@ -51,7 +51,8 @@ function lancerChrono(){
         rafraichitHorloge(); 
     }, 1000); // mettre 1000 pour une seconde
 
-    boutonStart.textContent = "reset";
+    
+    boutonStart.className = "fa-solid fa-rotate";
 }
 
 function reinitialiserChrono(){
@@ -60,7 +61,7 @@ function reinitialiserChrono(){
     tpsActuel.secondes = tpsTravail.secondes;
     travaille = true;
 
-    boutonStart.textContent = "start";
+    boutonStart.className = "fa-solid fa-circle-play";
 
     rafraichitHorloge();
 }
