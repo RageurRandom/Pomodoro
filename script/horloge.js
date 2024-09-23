@@ -66,6 +66,7 @@ function reinitialiserChrono(){
     rafraichitHorloge();
 }
 
+
 function rafraichitHorloge(){
     let strMin = tpsActuel.minutes.toString();
     let strSec = tpsActuel.secondes.toString();
