@@ -9,15 +9,11 @@ let secTravail = document.getElementById("secTravail");
 // let boutonReset = document.getElementById("reset"); //TODO les boutons reset et start sont les memes
 
 let tpsActuel = {minutes:0, secondes:0}; // temps du chrono
-let tpsTravail = {minutes : 0, secondes : 3};
+let tpsTravail = {minutes : 20, secondes : 0};
 let tpsRepos = {minutes : 10, secondes : 0};
 let travaille = true;
 let estLance = false;
 let minuteur; // stock le Timeout, permet de réinitialiser le chrono
-
-
-
-
 
 
 function changementStatut(){
@@ -65,6 +61,8 @@ function reinitialiserChrono(){
     travaille = true;
 
     boutonStart.textContent = "start";
+
+    rafraichitHorloge();
 }
 
 function rafraichitHorloge(){
@@ -74,12 +72,27 @@ function rafraichitHorloge(){
     horloge.textContent = strMin.padStart(2, '0')+":"+strSec.padStart(2, '0');
 }
 
+/**
+ * remets tpsTravail et tpsRepos à la même valeur que les inputs
+ * toujours tout faire en même temps permets d'assurer la synchronisation
+ */
+function rafraichitTemps(){
+    tpsTravail.secondes = parseInt(secTravail.value);
+    tpsTravail.minutes = parseInt(minTravail.value);
+    tpsRepos.secondes = parseInt(secRepos.value);
+    tpsRepos.minutes = parseInt(minRepos.value);
+
+    if(!estLance){
+        reinitialiserChrono();
+    }
+}
+
 
 boutonStart.addEventListener("click", ()=> {
     if(estLance){
         reinitialiserChrono();
         estLance = false;
-    rafraichitHorloge();
+    
     } else {
         lancerChrono();
         estLance = true;
@@ -87,23 +100,22 @@ boutonStart.addEventListener("click", ()=> {
 });
 
 secTravail.addEventListener("change", ()=>{
-    tpsTravail.secondes = parseInt(secTravail.value);
-    console.log(parseInt(secTravail.value));
+    rafraichitTemps();
+
 });
 
 minTravail.addEventListener("change", ()=>{
-    tpsTravail.minutes = parseInt(minTravail.value);
-    console.log(parseInt(minTravail.value));
+    rafraichitTemps();
+
 });
 
 secRepos.addEventListener("change", ()=>{
-    tpsRepos.secondes = parseInt(secRepos.value);
-    console.log(parseInt(secRepos.value));
+    rafraichitTemps();
+
 });
 
 minRepos.addEventListener("change", ()=>{
-    tpsRepos.minutes = parseInt(minRepos.value);
-    console.log(parseInt(minRepos.value));
+    rafraichitTemps();
 });
 
 // INITIALISATION
