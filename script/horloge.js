@@ -22,6 +22,8 @@ function changementStatut(){
         tpsActuel.minutes = tpsRepos.minutes;
 
         statut.textContent = 'Repos';
+        document.getElementById("body").style.background = "darkolivegreen";
+
 
         travaille = false;
     } else {
@@ -29,6 +31,7 @@ function changementStatut(){
         tpsActuel.minutes = tpsTravail.minutes;
 
         statut.textContent = 'Travail';
+        document.getElementById("body").style.background = "crimson";
 
         travaille = true;
     }
