@@ -87,8 +87,23 @@ boutonStart.addEventListener("click", ()=> {
 });
 
 secTravail.addEventListener("change", ()=>{
-    tpsTravail.secondes = parseInt(secTravail.textContent);
-    console.log("done");
+    tpsTravail.secondes = parseInt(secTravail.value);
+    console.log(parseInt(secTravail.value));
+});
+
+minTravail.addEventListener("change", ()=>{
+    tpsTravail.minutes = parseInt(minTravail.value);
+    console.log(parseInt(minTravail.value));
+});
+
+secRepos.addEventListener("change", ()=>{
+    tpsRepos.secondes = parseInt(secRepos.value);
+    console.log(parseInt(secRepos.value));
+});
+
+minRepos.addEventListener("change", ()=>{
+    tpsRepos.minutes = parseInt(minRepos.value);
+    console.log(parseInt(minRepos.value));
 });
 
 // INITIALISATION
