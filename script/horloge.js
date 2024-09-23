@@ -52,19 +52,22 @@ function lancerChrono(){
         }
 
         rafraichitHorloge(); 
-    }, 1000); // mettre 1000 pour une seconde
+    }, 1000);
 
     
-    boutonStart.className = "fa-solid fa-rotate";
+    boutonStart.className = "fa-solid fa-rotate"; //mets l'icone du bouton sur start
 }
 
+/**
+ * Réinitialise le chrono et rafraichit l'horloge
+ */
 function reinitialiserChrono(){
     clearInterval(minuteur);
     tpsActuel.minutes = tpsTravail.minutes;
     tpsActuel.secondes = tpsTravail.secondes;
     travaille = true;
 
-    boutonStart.className = "fa-solid fa-circle-play";
+    boutonStart.className = "fa-solid fa-circle-play"; //mets l'icone du bouton sur reset
 
     rafraichitHorloge();
 }

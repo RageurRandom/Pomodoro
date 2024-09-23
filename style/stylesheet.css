@@ -32,11 +32,12 @@ div{
     
 }
 
-.horloge{
+#horloge{
     width: 280px;
     height: 280px;
-    
-    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
     border: 7px solid white;
     border-radius: 50%;
