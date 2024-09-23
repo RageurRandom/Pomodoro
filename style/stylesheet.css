@@ -1,12 +1,25 @@
 body{
+    margin: 2pc;
     background-color: crimson;
     color: white;
     font-family: "Roboto", Arial, Helvetica, sans-serif;
     text-align: center;
+
+    font-size: 1.5pc;
+}
+
+h1{
+    font-size: 3pc;
+    margin-bottom: 2pc;
+}
+
+h2{
+    font-size: 2.5pc;
 }
 
 div{
-    margin-top: 3pc;
+    margin-top: 2.5pc;
+    margin-bottom: 2pc;
 }
 
 
@@ -16,17 +29,19 @@ div{
     justify-content: center;
     align-self: center;
     align-items: center;
-    width: 280px;
-    height: 280px;
-
-    margin-left: 42.5%;
-
-    border: 7px solid white;
-    border-radius: 50%;
+    
 }
 
 .horloge{
+    width: 280px;
+    height: 280px;
+    
+    
+
+    border: 7px solid white;
+    border-radius: 50%;
     margin-top: 0;
+    margin-bottom: 0;
     font-size: 3pc;
 }
 
