@@ -106,9 +106,65 @@ function rafraichitTemps(){
     tpsRepos.secondes = parseInt(secRepos.value);
     tpsRepos.minutes = parseInt(minRepos.value);
 
+    try {
+        stockTemps();
+    } catch (error) {
+        if(error !== SecurityPolicyViolationEvent){
+            console.log("quelque chose s'est mal passé : "+error.className);
+        } else {
+            console.log("impossible de créer un stockage")
+        }
+    }
+
     if(!estLance){
         reinitialiserChrono();
     }
+}
+
+
+/**
+ * fonction servant a mettre à jour/initialiser le localestorage pour y stocker les paramètres choisis
+ */
+function stockTemps(){
+    let stockage = localStorage; //pas en global car pourrait déclencher une exception
+
+    stockage.setItem("minuteTravail", tpsTravail.minutes);
+    stockage.setItem("minuteRepos", tpsRepos.minutes);
+    stockage.setItem("secondeTravail", tpsTravail.secondes);
+    stockage.setItem("secondeRepos", tpsRepos.secondes);
+}
+
+
+/**
+ * fonction servant à récuperer les paramètres dans le localstorage.
+ * Si il n'existait pas, les valeurs seront celles par défaut.
+ */
+function chargeTemps(){
+    try {
+        let stockage = localStorage;
+        let varTest = stockage.getItem("minuteTravail"); //permets de tester l'existence du stockage (une seule fois est nécessaire puisque tous les param. sont recopiés à chaque fois)
+
+        if(varTest != null){
+
+            //MàJ des variables
+            tpsTravail.minutes = varTest;
+            tpsTravail.secondes = stockage.getItem("secondeTravail");
+            tpsRepos.minutes = stockage.getItem("minuteRepos");
+            tpsRepos.secondes = stockage.getItem("secondeRepos");
+
+            //MàJ de l'affichage
+            minTravail.value = varTest;
+            secTravail.value = stockage.getItem("secondeTravail");
+            minRepos.value = stockage.getItem("minuteRepos");
+            secRepos.value = stockage.getItem("secondeRepos");
+
+        }
+        //sinon on ne fait rien
+
+    } catch (error) {
+        //On sait que le localstorage n'est pas possible, donc pas besoin de faire quoi que ce soit
+    }
+    
 }
 
 
@@ -146,6 +202,7 @@ minRepos.addEventListener("change", ()=>{
 
 
 // INITIALISATION
+chargeTemps();
 tpsActuel.minutes = tpsTravail.minutes;
 tpsActuel.secondes = tpsTravail.secondes;
 rafraichitHorloge();
