@@ -1,3 +1,5 @@
+const alerte = new Audio('sfx/alerte.mp3');
+
 let horloge = document.getElementById("horloge");
 let statut = document.getElementById("statut");
 let boutonStart = document.getElementById("start");
@@ -22,7 +24,7 @@ let minuteur; // stock le Timeout, permet de réinitialiser le chrono
 
 
 /**
- * Fonction utilisée pour passer du statut "travil" à "repos" et inversement
+ * Fonction utilisée pour passer du statut "travail" à "repos" et inversement
  */
 function changementStatut(){
     if(travaille){
@@ -43,6 +45,8 @@ function changementStatut(){
 
         travaille = true;
     }
+
+    alerte.play();
 }
 
 
